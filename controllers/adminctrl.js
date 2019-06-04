@@ -267,12 +267,15 @@ exports.doShowStudent = (req, res) => {
                         //生成文件
                         var dateStr = format.asString("yyyy-MM-dd-hh-mm-ss.SSS", new Date());
                         var filePath = "/download/学生名单" + dateStr + ".xlsx";
+
+                        fs.mkdir("./download");
                         fs.writeFile("./public" + filePath, buffer, (err) => {
                             if (err) {
-                                res.send("文件写入失败");
+                                console.log(err);
+                                return;                                
                             }
-                            console.log("ok");
-                            // res.redirect(filePath); 无法触发下载
+                            // console.log("ok");
+                            // res.redirect(filePath); //无法触发下载
                             res.send(filePath);
                         });
                     }

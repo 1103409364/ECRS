@@ -5,12 +5,14 @@ var adminctrl = require('./controllers/adminctrl');
 var stuctrl = require('./controllers/stuctrl');
 
 var app = express();
-
+// 云数据库 https://cloud.mongodb.com
 const uri = "mongodb+srv://123456:qwertyz@cluster0-on6ig.mongodb.net/test?retryWrites=true&w=majority";
 // 链接数据库registration_system
 mongoose.connect(uri, { useNewUrlParser: true });
+// 本地数据库
 // mongoose.connect('mongodb://localhost/registration_system', { useNewUrlParser: true });
-//session用于登陆
+
+//session
 app.use(session({
     secret: 'registrationSystem',
     cookie: { maxAge: 3600000 }, //登陆过期时间
