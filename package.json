@@ -17,5 +17,9 @@
     "mongoose": "^5.5.2",
     "node-xlsx": "^0.14.1"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": "v10.15.3",
+    "npm": "6.9.0"
+  }
 }
