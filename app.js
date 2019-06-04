@@ -5,12 +5,22 @@ var adminctrl = require('./controllers/adminctrl');
 var stuctrl = require('./controllers/stuctrl');
 
 var app = express();
+
+const uri = "mongodb+srv://00000:qwertyz@cluster0-nfmrt.mongodb.net/test?retryWrites=true&w=majority";
+
 // 云数据库 https://cloud.mongodb.com
-const uri = "mongodb+srv://123456:qwertyz@cluster0-on6ig.mongodb.net/test?retryWrites=true&w=majority";
-// 链接数据库registration_system
 mongoose.connect(uri, { useNewUrlParser: true });
-// 本地数据库
+
+// 本地数据库registration_system
 // mongoose.connect('mongodb://localhost/registration_system', { useNewUrlParser: true });
+
+// 数据库错误处理
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    console.log("we're connected!");
+     
+});
 
 //session
 app.use(session({
