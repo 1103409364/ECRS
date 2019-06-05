@@ -1,9 +1,4 @@
-/* 
-*  两个业务
-*1 管理员首页图表绘制
-*2 报名系统开放关闭
-*/
-
+// 渲染统计图表
 
 // 获取数据data中包含了课程和学生的所有数据
 $.post("/admin", (data) => {
@@ -34,10 +29,11 @@ $.post("/admin", (data) => {
             }
         })
 
-        showState(data.isOpen);
+        // showState(data.isOpen);
         drawBar(barLabels, barData);
         drawPie(pieData);
         drawTable(data.student.length, data.course.length, pieData[0], pieData[1], defaultPwd);
+        hideTips("");
     }
 })
 
@@ -108,46 +104,6 @@ function drawTable(a, b, c, d, e) {
     $("#collectTable td").eq(4).html(e);
 }
 
-// 显示系统状态
-function showState(isOpen) {
-    if(isOpen) {
-        $("#sysState").html("报名进行中").addClass("text-success");
-        $("#onSys").addClass("disabled");
-        $("#offSys").removeClass("disabled");
-    } else {
-        $("#sysState").html("报名系统已关闭").removeClass("text-success");
-        $("#offSys").addClass("disabled");
-        $("#onSys").removeClass("disabled");
-    }
+function hideTips(tip) {
+    $("#tips").html(tip);
 }
-
-$("#onSys").on("click", () =>{
-    // 按钮处于disable状态，阻止发送请求
-    if ($("#onSys").hasClass("disabled")) return;
-
-    $.get("/admin/onSys", (data) => {
-        if (data.result === 1) {
-            $("#sysState").html("报名进行中").addClass("text-success");
-            $("#onSys").addClass("disabled");
-            $("#offSys").removeClass("disabled");
-        } else {
-            alert("服务器错误，请联系管理员");
-        }
-    });
-})
-
-$("#offSys").on("click", () => {
-    if ($("#offSys").hasClass("disabled")) return;
-    
-    if (confirm("报名系统将被关闭！！如果是误操作，请点击取消")) {
-        $.get("/admin/offSys", (data) => {
-            if(data.result === 1) {
-                $("#sysState").html("报名系统未开放").removeClass("text-success");
-                $("#offSys").addClass("disabled");
-                $("#onSys").removeClass("disabled");
-            } else {
-                alert("服务器错误，请联系管理员");
-            }
-        });
-    }
-})
