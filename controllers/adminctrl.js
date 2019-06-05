@@ -268,7 +268,6 @@ exports.doShowStudent = (req, res) => {
                         var dateStr = format.asString("yyyy-MM-dd-hh-mm-ss.SSS", new Date());
                         var filePath = "/download/学生名单" + dateStr + ".xlsx";
 
-                        fs.mkdir("./download");
                         fs.writeFile("./public" + filePath, buffer, (err) => {
                             if (err) {
                                 console.log(err);
@@ -564,7 +563,7 @@ exports.doShowCourse = (req, res) => {
                     //整理数据,课程只有一个表，find没有限制条件
                     Course.find({}, (err, results) => {
                         // sheetR子表，每个子表先放一个表头
-                        var sheetR = [["课程编号", "课程名称", "上课时间", "可报人数", "可报年级", "教师", "课程简介"]];
+                        var sheetR = [["课程编号", "课程名称", "上课时间", "可报人数", "可报年级", "教师", "课程简介","已报名学生的学号"]];
                         results.forEach((item) => {
                             sheetR.push([
                                 item.cid,
@@ -573,7 +572,8 @@ exports.doShowCourse = (req, res) => {
                                 item.number,
                                 item.permitGrade,
                                 item.teacher,
-                                item.introduction
+                                item.introduction,
+                                item.students.join(","),
                             ]);
                         });
                         // name表名，data对应年级的数据

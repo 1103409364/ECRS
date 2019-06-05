@@ -10,7 +10,7 @@ function pageInit2() {
             url: "/admin/course",//组件创建完成之后请求数据的url
             editurl: "/admin/course",
             datatype: "json",//请求数据返回的类型。可选json,xml,txt
-            colNames: ['_id', '课程编号', '课程名称', '上课时间', '可报人数', '可报名年级', '教师', '课程简介'],//jqGrid的列显示名字
+            colNames: ['_id', '课程编号', '课程名称', '上课时间', '可报人数', '可报名年级', '教师', '课程简介','已报名学生的学号'],//jqGrid的列显示名字
             colModel: [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
                 { name: '_id', index: '_id', "hidden": true, key: true },
                 // editrules表单验证，比如必填不能为空
@@ -18,11 +18,10 @@ function pageInit2() {
                 { name: 'name', index: 'name', "editable": true, edittype: "text", width: 20, align: "center", editrules: { edithidden: true, required: true } },
                 { name: 'time', index: 'time', "editable": true, edittype: "select", editoptions: { value: "周一:周一;周二:周二;周三:周三;周四:周四;周五:周五" }, width: 15, align: "center" },
                 { name: 'number', index: 'number', "editable": true, edittype: "text", width: 15, align: "center", editrules: { edithidden: true, required: true, number: true, minValue: 0 } },
-
                 { name: 'permitGrade', index: 'permitGrade', "editable": true, edittype: "text", width: 30, align: "center", editrules: { edithidden: true, required: true } },
-
                 { name: 'teacher', "editable": true, edittype: "text", sortable: false, width: 15, align: "center", editrules: { edithidden: true, required: true } },
                 { name: 'introduction', "editable": true, edittype: "textarea", sortable: false, width: 100, align: "left", editrules: { edithidden: true, required: true } },
+                { name: 'students', "editable": false, sortable: false,  width: 100,align: "left", editrules: { edithidden: true, required: true } },
             ],
             rowNum: 10,//一页显示多少条
             rowList: [10, 20, 30, 40, 50, 100],//可供用户选择一页显示多少条
