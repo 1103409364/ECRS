@@ -65,11 +65,11 @@ exports.offSys = (req, res) => {
     }
 }
 
-// 显示管理员登陆页面
+// 显示管理员登录页面
 exports.showAdminLogin = (req, res) => {
     res.render("admin/adminLogin");
 }
-// 登陆验证
+// 登录验证
 exports.doLogin = (req, res) => {
     var form = new formidable.IncomingForm();
     form.parse(req, (err, fields) => {
@@ -78,28 +78,28 @@ exports.doLogin = (req, res) => {
 
         Admin.find({ "adminUsername": adminUsername }, (err, results) => {
             if (results.length > 0 && results[0].password === sha256Pwd) {
-                console.log("管理员登陆成功");
+                console.log("管理员登录成功");
                 // 下发session
                 req.session.adminLogin = true;
                 // 记录用户名，可以用户页面显示
                 req.session.adminUsername = adminUsername;
                 res.redirect("/admin")
             } else {
-                res.send("密码错误，请返回重新登陆");
+                res.send("密码错误，请返回重新登录");
                 // res.redirect("/admin/login");
             }
         })
     });
 }
-// 退出登陆状态
+// 退出登录状态
 exports.doLogout = (req, res) => {
     req.session.adminLogin = false;
     res.redirect("/admin/login");
-    console.log("退出登陆");
+    console.log("退出登录");
 }
 // 管理员面板首页
 exports.showAdmin = (req, res) => {
-    // 检查session登陆状态
+    // 检查session登录状态
     if (req.session.adminLogin === true) {
         // 第二个参数用于给sidebar加class，显示用户名
         res.render("admin/admin", {
@@ -107,14 +107,14 @@ exports.showAdmin = (req, res) => {
             "adminUsername": req.session.adminUsername,
         });
     } else {
-        // 跳转到登陆页面
+        // 跳转到登录页面
         res.redirect("/admin/login");
         return;
     }
 }
 // 返回学生和课程数据的数据
 exports.doShowAdmin = (req, res) => {
-    // 检查session登陆状态
+    // 检查session登录状态
     if (req.session.adminLogin !== true) {
         res.redirect("/admin/login");
         return;
@@ -150,7 +150,7 @@ exports.doShowAdmin = (req, res) => {
 
 // 学生管理页面
 exports.showStudent = (req, res) => {
-    // 检查session登陆状态
+    // 检查session登录状态
     if (req.session.adminLogin === true) {
 
         res.render("admin/student", {
@@ -158,7 +158,7 @@ exports.showStudent = (req, res) => {
             "adminUsername": req.session.adminUsername,
         });
     } else {
-        // 跳转到登陆页面
+        // 跳转到登录页面
         res.redirect("/admin/login");
         return;
     }
@@ -168,7 +168,7 @@ exports.showStudent = (req, res) => {
 // 请求参数：排序主键sid、当前页条数rows、页码page、排序方式
 // 页面载入和换页都会发起请求，就是后端分页
 exports.doShowStudent = (req, res) => {
-    // 检查session登陆状态，如果不在登陆状态跳转到登陆页面
+    // 检查session登录状态，如果不在登录状态跳转到登录页面
     if (req.session.adminLogin !== true) {
         res.redirect("/admin/login");
         return;
@@ -320,7 +320,7 @@ exports.doShowStudent = (req, res) => {
 }
 // 显示导入学生名单页面
 exports.showStudentImport = (req, res) => {
-    // 检查session登陆状态
+    // 检查session登录状态
     if (req.session.adminLogin === true) {
         // 第二个参数用于给sidebar加class，显示用户名
         res.render("admin/stuImport", {
@@ -328,7 +328,7 @@ exports.showStudentImport = (req, res) => {
             "adminUsername": req.session.adminUsername,
         });
     } else {
-        // 跳转到登陆页面
+        // 跳转到登录页面
         res.redirect("/admin/login");
         return;
     }
@@ -336,7 +336,7 @@ exports.showStudentImport = (req, res) => {
 }
 // 上传文件，导入学生名单
 exports.doStudentImport = (req, res) => {
-    // 检查session登陆状态，如果不在登陆状态跳转到登陆页面
+    // 检查session登录状态，如果不在登录状态跳转到登录页面
     if (req.session.adminLogin !== true) {
         res.redirect("/admin/login");
         return;
@@ -414,14 +414,14 @@ exports.doStudentImport = (req, res) => {
 }
 // 显示课程列表页面
 exports.showCourse = (req, res) => {
-    // 检查session登陆状态
+    // 检查session登录状态
     if (req.session.adminLogin === true) {
         res.render("admin/course", {
             "current": "course",
             "adminUsername": req.session.adminUsername,
         });
     } else {
-        // 跳转到登陆页面
+        // 跳转到登录页面
         res.redirect("/admin/login");
         return;
     }
@@ -429,7 +429,7 @@ exports.showCourse = (req, res) => {
 }
 // 返回课程列表的数据
 exports.doShowCourse = (req, res) => {
-    // 检查session登陆状态，如果不在登陆状态跳转到登陆页面
+    // 检查session登录状态，如果不在登录状态跳转到登录页面
     if (req.session.adminLogin !== true) {
         res.redirect("/admin/login");
         return;
@@ -605,14 +605,14 @@ exports.doShowCourse = (req, res) => {
 
 // 显示导入课程页面
 exports.showCourseImport = (req, res) => {
-    // 检查session登陆状态
+    // 检查session登录状态
     if (req.session.adminLogin === true) {
         res.render("admin/courseImport", {
             "current": "course",
             "adminUsername": req.session.adminUsername,
         })
     } else {
-        // 跳转到登陆页面
+        // 跳转到登录页面
         res.redirect("/admin/login");
         return;
     }
@@ -620,7 +620,7 @@ exports.showCourseImport = (req, res) => {
 
 // 上传文件，导入课程
 exports.doCourseImport = (req, res) => {
-    // 检查session登陆状态，如果不在登陆状态跳转到登陆页面
+    // 检查session登录状态，如果不在登录状态跳转到登录页面
     if (req.session.adminLogin !== true) {
         res.redirect("/admin/login");
         return;
@@ -711,14 +711,14 @@ exports.doCourseImport = (req, res) => {
 
 // 显示报表
 exports.showCharts = (req, res) => {
-    // 检查session登陆状态
+    // 检查session登录状态
     if (req.session.adminLogin === true) {
         res.render("admin/charts", {
             "current": "charts",
             "adminUsername": req.session.adminUsername,
         });
     } else {
-        // 跳转到登陆页面
+        // 跳转到登录页面
         res.redirect("/admin/login");
         return;
     }

@@ -28,7 +28,7 @@ studentSchema.statics.saveToDB = (stuArr) => {
                     "sex": stuArr[grade].data[i][2],
                     "grade": stuArr[grade].name,
                     "password": {
-                        // 学号作为初始加密码,登陆后提示改密码
+                        // 学号作为初始加密码,登录后提示改密码
                         "pwd": stuArr[grade].data[i][0],
                         "isInitial": "是"
                     }

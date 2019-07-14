@@ -25,7 +25,7 @@ db.once('open', function () {
 //session
 app.use(session({
     secret: 'registrationSystem',
-    cookie: { maxAge: 3600000 }, //登陆过期时间
+    cookie: { maxAge: 3600000 }, //登录过期时间
     resave: false,
     saveUninitialized: true
 }));
@@ -40,11 +40,11 @@ app.post('/addadmin', adminctrl.doAddAdmin);
 app.get('/admin', adminctrl.showAdmin);
 // 提供报表数据
 app.post('/admin', adminctrl.doShowAdmin);
-// 登陆
+// 登录
 app.get('/admin/login', adminctrl.showAdminLogin);
-// 登陆验证
+// 登录验证
 app.post('/admin/login', adminctrl.doLogin);
-// 退出登陆状态
+// 退出登录状态
 app.get('/admin/logout', adminctrl.doLogout);
 // 学生管理页面
 app.get("/admin/student", adminctrl.showStudent);
@@ -72,14 +72,14 @@ app.get("/admin/onSys", adminctrl.onSys);
 app.get("/admin/offSys", adminctrl.offSys);
 
 
-// 学生登陆报名
+// 学生登录报名
 // 首页，所有课程和已报课程共用接口
 app.get('/', stuctrl.showAllCourse);
 // 获得课程数据
 app.post('/', stuctrl.doShowAllCourse);
-// 登陆页
+// 登录页
 app.get('/student/login', stuctrl.showStudentLogin);
-// 登陆验证
+// 登录验证
 app.post('/student/login', stuctrl.doLogin);
 // 更改密码页面
 app.get('/student/changePwd', stuctrl.showchangePwd);
@@ -88,7 +88,7 @@ app.post('/student/changePwd', stuctrl.doChangePwd);
 // 已选课程页面
 app.get('/student/myCourse', stuctrl.showMyCourse);
 app.post('/student/myCourse', stuctrl.doShowMyCourse);
-// 学生退出登陆
+// 学生退出登录
 app.get('/student/logout', stuctrl.doLogout);
 // 报名接口
 app.post('/student/register', stuctrl.doRegister);

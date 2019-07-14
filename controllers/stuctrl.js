@@ -22,7 +22,7 @@ exports.showAllCourse = (req, res) => {
 // 获取取课程数据
 exports.doShowAllCourse = (req, res) => {
     var data = {};
-    // 检查是否在登陆状态
+    // 检查是否在登录状态
     if (req.session.stuLogin === true) {
         // 检查所有课程，看看当前学生能不能报名，需要考虑的情况：
         // 选课数量上限2
@@ -60,7 +60,7 @@ exports.doShowAllCourse = (req, res) => {
                 data.courses = cos;
                 // 遍历所有课程，找到周几被占用
                 cos.forEach((item) => {
-                    // myCourse存放登陆用户的已报课程
+                    // myCourse存放登录用户的已报课程
                     if (myCourse.indexOf(item.cid) !== -1) {
                         occupyDay.push(item.time);
                     }
@@ -99,7 +99,7 @@ exports.doShowAllCourse = (req, res) => {
             })
         })
     } else {
-        res.redirect("/student/login"); //不在登陆状态
+        res.redirect("/student/login"); //不在登录状态
     }
 }
 
@@ -131,12 +131,12 @@ exports.doShowMyCourse = (req, res) => {
         res.redirect("/student/login");
     }
 }
-// 显示学生登陆页面
+// 显示学生登录页面
 exports.showStudentLogin = (req, res) => {
     res.render("stu/stuLogin");
 }
 
-// 登陆验证
+// 登录验证
 exports.doLogin = (req, res) => {
     var form = new formidable.IncomingForm();
     form.parse(req, (err, fields) => {
@@ -146,7 +146,7 @@ exports.doLogin = (req, res) => {
 
         Student.find({ "sid": sid }, (err, results) => {
             if (results.length === 0) {
-                res.send("用户不存在，请返回重新登陆");
+                res.send("用户不存在，请返回重新登录");
             } else {
                 // 检查是不是初始密码
                 if (results[0].password.isInitial === "是") {
@@ -160,10 +160,10 @@ exports.doLogin = (req, res) => {
                         req.session.grade = results[0].grade;
                         res.redirect("/student/changePwd");
                     } else {
-                        res.send("密码错误，请返回重新登陆");
+                        res.send("密码错误，请返回重新登录");
                     }
                 } else if (results[0].password.pwd === sha256Pwd) {
-                    // 不是初始密码，同时密码正确，登陆成功
+                    // 不是初始密码，同时密码正确，登录成功
                     // 下发session
                     req.session.stuLogin = true;
                     // 记录用户名（学号），姓名
@@ -173,7 +173,7 @@ exports.doLogin = (req, res) => {
                     // 跳转到首页
                     res.redirect("/");
                 } else {
-                    res.send("密码错误，请返回重新登陆");
+                    res.send("密码错误，请返回重新登录");
                 }
             }
         })
@@ -181,7 +181,7 @@ exports.doLogin = (req, res) => {
 }
 // 更改密码页面
 exports.showchangePwd = (req, res) => {
-    // 如果不在登陆状态，就跳转到登陆页面
+    // 如果不在登录状态，就跳转到登录页面
     if (req.session.stuLogin !== true) {
         res.redirect("/student/login");
         return;
@@ -209,11 +209,11 @@ exports.doChangePwd = (req, res) => {
         res.redirect("/student/login");
     }
 }
-// 退出登陆
+// 退出登录
 exports.doLogout = (req, res) => {
     req.session.stuLogin = false;
     res.redirect("/student/login");
-    console.log("学生退出登陆");
+    console.log("学生退出登录");
 }
 // 报名
 exports.doRegister = (req, res) => {
