@@ -1,7 +1,7 @@
 {
-  "name": "03_registration_system",
+  "name": "ECRS",
   "version": "1.0.0",
-  "description": "选课报名系统，技术栈NodeJS + Express + MongoDB + Mongoose + Ejs + BootStrap + chart.js，运行方法：先开启MondoDB数据库，再运行 node app.js。通过 '/addadmin' 接口添加一个管理员",
+  "description": "技术栈NodeJS + Express + MongoDB + Mongoose + Ejs + BootStrap + chart.js",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -24,5 +24,6 @@
   "engines": {
     "node": ">=8",
     "npm": "6.9.0"
-  }
+  },
+  "repository": "https://github.com/1103409364/ECRS.git"
 }

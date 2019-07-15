@@ -1,34 +1,19 @@
 var express = require('express');
-var mongoose = require('mongoose');
 var session = require('express-session');
 var adminctrl = require('./controllers/adminctrl');
 var stuctrl = require('./controllers/stuctrl');
-
+var mongoose = require('./config/mongoose.js');
+var db = mongoose.connection;
 var app = express();
 
-const uri = "mongodb+srv://00000:qwertyz@cluster0-nfmrt.mongodb.net/test?retryWrites=true&w=majority";
-
-// 云数据库 https://cloud.mongodb.com
-mongoose.connect(uri, { useNewUrlParser: true });
-
-// 本地数据库registration_system
-// mongoose.connect('mongodb://localhost/registration_system', { useNewUrlParser: true });
-
-// 数据库错误处理
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-    console.log("we're connected!");
-     
-});
-
-//session
+// 使用 session
 app.use(session({
     secret: 'registrationSystem',
     cookie: { maxAge: 3600000 }, //登录过期时间
     resave: false,
     saveUninitialized: true
 }));
+
 // 设置模板引擎
 app.set('view engine', "ejs");
 
@@ -73,6 +58,7 @@ app.get("/admin/offSys", adminctrl.offSys);
 
 
 // 学生登录报名
+
 // 首页，所有课程和已报课程共用接口
 app.get('/', stuctrl.showAllCourse);
 // 获得课程数据
@@ -100,5 +86,5 @@ app.use(express.static('public'));
 // 从上往下拦截,都没有匹配的项,最后到404
 app.use(adminctrl.show404);
 
-// app.listen(3000, console.log("The server is running on port 3000"));
-app.listen(process.env.PORT || 5000);
+const PORT = parseInt(process.env.PORT, 10) || 5000;
+app.listen(PORT, () => console.log(`Server is running on PORT ${PORT}`));

@@ -13,4 +13,4 @@
 <br>
 密码保存：用户密码使用 SHA256 加密后保存到数据库。<br>
 
-使用的技术栈：NodeJS + Express + MongoDB + Mongoose + Ejs + BootStrap + chart.js
+技术栈NodeJS + Express + MongoDB + Mongoose + Ejs + BootStrap + chart.js，运行方法：先开启MondoDB数据库，再运行 node app.js。通过 '/addadmin' 接口添加一个管理员"
