@@ -4,7 +4,7 @@
   "description": "技术栈NodeJS + Express + MongoDB + Mongoose + Ejs + BootStrap + chart.js",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "e2e": "repo-tools test deploy",
     "test": "repo-tools test app",
     "cover": "nyc --cache npm test; nyc report --reporter=html"
@@ -20,7 +20,9 @@
     "mongoose": "^5.5.2",
     "node-xlsx": "^0.14.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
   "engines": {
     "node": ">=8",
     "npm": "6.9.0"
