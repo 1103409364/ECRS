@@ -56,8 +56,8 @@ app.get("/admin/onSys", adminctrl.onSys);
 // 关闭系统
 app.get("/admin/offSys", adminctrl.offSys);
 
-
-// 学生登录报名
+/* 上面是管理员接口 */
+/* 下面是学生登录报名接口 */
 
 // 首页，所有课程和已报课程共用接口
 app.get('/', stuctrl.showAllCourse);
